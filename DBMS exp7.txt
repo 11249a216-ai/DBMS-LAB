@@ -1,0 +1,130 @@
+SQL> create table student
+  2  (
+  3  student_id number(5) primary key,
+  4  student_name varchar2(30),
+  5  Department varchar2(20),
+  6  marks number(3)
+  7  );
+
+Table created.
+
+
+
+SQL> insert into Student values (216 ,'rishitha','cse',85);
+
+1 row created.
+
+SQL> insert into Student values (217 , 'medha','ece',78);
+
+1 row created.
+
+SQL> insert into Student values (212 , 'sabi', 'it',92);
+
+1 row created.
+
+SQL> insert into Student values (213 , 'kavi' , 'cse',88);
+
+1 row created.
+
+SQL> Select * from Student;
+
+STUDENT_ID STUDENT_NAME                   DEPARTMENT                MARKS
+---------- ------------------------------ -------------------- ----------
+       216 rishitha                       cse                          85
+       217 medha                          ece                          78
+       212 sabi                           it                           92
+       213 kavi                           cse                          88
+
+SQL> Create view cse_Students as select student_id, Student_name, marks from Student where department = 'CSE';
+
+View created.
+
+
+SQL> Select * from Student where department = 'cse';
+
+STUDENT_ID STUDENT_NAME                   DEPARTMENT                MARKS
+---------- ------------------------------ -------------------- ----------
+       216 rishitha                       cse                          85
+       213 kavi                           cse                          88
+
+SQL> CREATE SEQUENCE STUD_SEQ
+  2  START WITH 105
+  3  INCREMENT BY 1
+  4  MINVALUE 105
+  5  MAXVALUE 999
+  6  NOCYCLE
+  7  NOCACHE;
+
+Sequence created.
+
+SQL> Select Stud_seq.nextval from dual;
+
+   NEXTVAL
+----------
+       105
+
+SQL> Select stud_seq.nextval from dual;
+
+   NEXTVAL
+----------
+       106
+
+SQL> insert into student values (stud_seq.nextval,'ravi','ece',81);
+
+1 row created.
+
+SQL> Select * from Student;
+
+STUDENT_ID STUDENT_NAME                   DEPARTMENT                MARKS
+---------- ------------------------------ -------------------- ----------
+       216 rishitha                       cse                          85
+       217 medha                          ece                          78
+       212 sabi                           it                           92
+       213 kavi                           cse                          88
+       107 ravi                           ece                          81
+
+SQL> Create index idx_Student_name on Student(Student_name);
+
+Index created.
+
+SQL> SELECT INDEX_NAME, TABLE_NAME
+  2  FROM USER_INDEXES
+  3  WHERE TABLE_NAME = 'STUDENT';
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+SYS_C0034856                   STUDENT
+IDX_STUDENT_NAME               STUDENT
+
+SQL> INSERT INTO STUDENT VALUES (108,'SURESH','IT',90);
+
+1 row created.
+
+SQL> SAVEPOINT SP1;
+
+Savepoint created.
+
+SQL> INSERT INTO STUDENT VALUES (109,'MANOJ','CSE',87);
+
+1 row created.
+
+SQL> ROLLBACK TO SP1;
+
+Rollback complete.
+
+SQL> SELECT * FROM STUDENT;
+
+STUDENT_ID STUDENT_NAME                   DEPARTMENT                MARKS
+---------- ------------------------------ -------------------- ----------
+       216 rishitha                       cse                          85
+       217 medha                          ece                          78
+       212 sabi                           it                           92
+       213 kavi                           cse                          88
+       107 ravi                           ece                          81
+       108 SURESH                         IT                           90
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
