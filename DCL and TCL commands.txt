@@ -1,0 +1,98 @@
+
+
+Enter user-name: A216@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table employee
+  2  (
+  3  emp_id number(6) primary key,
+  4  emp_name varchar2(30),
+  5  salary number(8)
+  6  );
+
+Table created.
+
+SQL> insert into employee values(216 'rishitha',35000);
+insert into employee values(216 'rishitha',35000)
+                                *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> insert into employee values(216, 'rishitha',35000);
+
+1 row created.
+
+SQL> insert into employee values(102 , 'bala',40000);
+
+1 row created.
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(6)
+ EMP_NAME                                           VARCHAR2(30)
+ SALARY                                             NUMBER(8)
+
+SQL> Select * from employee
+  2
+SQL> Select * from employee;
+
+    EMP_ID EMP_NAME                           SALARY
+---------- ------------------------------ ----------
+       216 rishitha                            35000
+       102 bala                                40000
+
+SQL> grant select on employee to scott;
+
+Grant succeeded.
+
+SQL> grant select , insert, update on employee to scott;
+
+Grant succeeded.
+
+SQL> Revoke insert on employee from scott;
+
+Revoke succeeded.
+
+SQL> insert into employee values (103,'Divya',45000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into employee values (104,'kavi',42000);
+
+1 row created.
+
+SQL> savepoint sp1;
+
+Savepoint created.
+
+SQL> insert into employee values(105,'ravi',38000);
+
+1 row created.
+
+SQL> RollBack to Sp1;
+
+Rollback complete.
+
+SQL> Select * from employee;
+
+    EMP_ID EMP_NAME                           SALARY
+---------- ------------------------------ ----------
+       216 rishitha                            35000
+       102 bala                                40000
+       103 Divya                               45000
+       104 kavi                                42000
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
