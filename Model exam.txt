@@ -1,0 +1,157 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Mon Oct 12 01:07:39 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A216@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+  SQL> Create table Course3 (
+  2  Course_id int primary key,
+  3  Course_name varchar2(20),
+  4  Credits int,
+  5  Semester int,
+  6  Faculty varchar2(20)
+  7  );
+
+Table created.
+
+
+SQL> insert into Course3 values (101 ,'data structures', 4,3,'dr.kumar');
+
+1 row created.
+
+SQL> insert into Course3 values(102 , 'DBMS',3,4,'dr.sharmar');
+
+1 row created.
+
+SQL> insert into Course3 values(103,'operating system',4,5,'dr.reddy');
+
+1 row created.
+
+SQL> insert into Course3 values(104,'Computer network',3,3,'dr.kumar');
+
+1 row created.
+
+
+SQL> Select Course_name , faculty from Course3;
+
+COURSE_NAME          FACULTY
+-------------------- --------------------
+data structures      dr.kumar
+DBMS                 dr.sharmar
+operating system     dr.reddy
+Computer network     dr.kumar
+
+
+SQL> Select * from Course3 where semester = 3;
+
+ COURSE_ID COURSE_NAME             CREDITS   SEMESTER FACULTY
+---------- -------------------- ---------- ---------- --------------------
+       101 data structures               4          3 dr.kumar
+       104 Computer network              3          3 dr.kumar
+
+SQL> Select * from Course3 where credits >3;
+
+ COURSE_ID COURSE_NAME             CREDITS   SEMESTER FACULTY
+---------- -------------------- ---------- ---------- --------------------
+       101 data structures               4          3 dr.kumar
+       103 operating system              4          5 dr.reddy
+
+SQL> Select * from course3 where faculty like 'dr.kumar';
+
+ COURSE_ID COURSE_NAME             CREDITS   SEMESTER FACULTY
+---------- -------------------- ---------- ---------- --------------------
+       101 data structures               4          3 dr.kumar
+       104 Computer network              3          3 dr.kumar
+
+SQL> Create table college (
+  2  college_id int primary key,
+  3  college_name varchar(60)
+  4  );
+
+Table created.
+
+
+SQL> Create table Student8(
+  2  Student_id int primary key,
+  3  Student_name varchar(50) not null,
+  4  email varchar(50) unique,
+  5  cgpa decimal(3,2) check(cgpa>=0 and cgpa <=10),
+  6  college_id int,
+  7  foreign key(college_id) References college(college_id)
+  8  );
+Create table Student8(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> Create table Student20(
+  2  Student_id int primary key,
+  3  Student_name varchar(50) not null,
+  4  email varchar(50) unique,
+  5  cgpa decimal(3,2) check(cgpa>=0 and cgpa <=10),
+  6  college_id int,
+  7  foreign key(college_id) References college(college_id)
+  8  );
+
+Table created.
+
+SQL> insert into college values(1,'engineering college');
+
+1 row created.
+
+SQL> insert into college values(2,'Science college');
+
+1 row created.
+
+SQL> insert into Student20 values(1,'Rishitha','Rishi@email.com',8.5,1);
+
+1 row created.
+
+SQL> insert into Student20 values(2,'Medha','Medha@gmail.com',9.5,2);
+
+1 row created.
+
+
+
+SQL> Select * from Student20;
+
+STUDENT_ID STUDENT_NAME
+---------- --------------------------------------------------
+EMAIL                                                    CGPA COLLEGE_ID
+-------------------------------------------------- ---------- ----------
+         1 Rishitha
+Rishi@email.com                                           8.5          1
+
+         2 Medha
+Medha@gmail.com                                           9.5          2
+
+
+SQL> insert into Student20 values(1, 'charlie','charlie@gmail.com',7.8,1);
+insert into Student20 values(1, 'charlie','charlie@gmail.com',7.8,1)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (A216.SYS_C0035904) violated
+
+
+SQL> insert into Student20 values(3,'David lee','david@gmail.com',11.0,1);
+insert into Student20 values(3,'David lee','david@gmail.com',11.0,1)
+                                                             *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into Student20 values( 4, 'emmawatson','emma@gmail.com',8.2,99);
+insert into Student20 values( 4, 'emmawatson','emma@gmail.com',8.2,99)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A216.SYS_C0035906) violated - parent key not
+found
+
+
+SQL>
