@@ -2,7 +2,7 @@ SQL*Plus: Release 11.2.0.1.0 Production on Mon Jul 20 11:24:36 2026
 
 Copyright (c) 1982, 2010, Oracle.  All rights reserved.
 
-Enter user-name: A216s@db2021
+Enter user-name: A216@db2021
 Enter password:
 
 Connected to:
